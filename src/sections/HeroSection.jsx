@@ -6,6 +6,10 @@ import CanvasLoader from "../components/CanvasLoader";
 // import { Leva, useControls } from "leva";
 import { useMediaQuery } from "react-responsive";
 import { calculateSizes } from "../constants";
+import Target from "../components/Target";
+import ReactLogo from "../components/ReactLogo";
+import Cube from "../components/Cube";
+import Rings from "../components/Rings";
 
 const HeroSection = () => {
   // const controls = useControls("HackerRoom", {
@@ -46,7 +50,7 @@ const HeroSection = () => {
   //   },
   // });
 
-  const isSmall = useMediaQuery({ maxWidth: 320 });
+  const isSmall = useMediaQuery({ maxWidth: 440 });
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
 
@@ -72,6 +76,13 @@ const HeroSection = () => {
               rotation={[0.3, -Math.PI, 0]}
               position={sizes.deskPosition}
             />
+            <group>
+              <Target position={sizes.targetPosition} scale={1.2} />
+              <ReactLogo position={sizes.reactLogoPosition} />
+              <Cube position={sizes.cubePosition} />
+              <Rings position={sizes.ringPosition} />
+            </group>
+
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 10]} intensity={0.5} />
           </Suspense>
