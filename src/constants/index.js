@@ -258,12 +258,12 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
       ? [5, -5, 0]
       : [9, -5.5, 0],
     reactLogoPosition: isSmall
-      ? [3, 4, 0]
+      ? [-11, -18, 0]
       : isMobile
-      ? [5, 4, 0]
+      ? [-6, -22, 0]
       : isTablet
-      ? [5, 4, 0]
-      : [12, 3, 0],
+      ? [5, -10, 0]
+      : [0, -15, 0],
     ringPosition: isSmall
       ? [-5, 7, 0]
       : isMobile
@@ -272,7 +272,7 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
       ? [-12, 10, 0]
       : [-24, 10, 0],
     targetPosition: isSmall
-      ? [-5, -10, -10]
+      ? [-7, -12, -10]
       : isMobile
       ? [-9, -10, -10]
       : isTablet
