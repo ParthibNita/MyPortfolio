@@ -99,7 +99,11 @@ const HeroSection = () => {
         </Canvas>
       </div>
 
-      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
+      <div
+        className={`absolute ${
+          isMobile ? "bottom-1" : "bottom-7"
+        } left-0 right-0 w-full z-10 c-space`}
+      >
         <a href="#contact" className="w-fit">
           <Button
             name="Let's Connect"
