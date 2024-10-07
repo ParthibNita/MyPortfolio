@@ -10,6 +10,7 @@ import Target from "../components/Target";
 import ReactLogo from "../components/ReactLogo";
 import Cube from "../components/Cube";
 import Rings from "../components/Rings";
+import HeroCamera from "./../components/HeroCamera";
 
 const HeroSection = () => {
   // const controls = useControls("HackerRoom", {
@@ -59,7 +60,7 @@ const HeroSection = () => {
     <section className="min-h-screen w-full flex flex-col relative">
       <div className="w-full mx-auto flex flex-col mt-20 sm:mt-36 c-space gap-3">
         <p className="text-white text-center text-2xl sm:text-3xl font-medium font-generalsans">
-          Hi, my name is Parthib<span className="waving-hand">👋</span>
+          Hi, I am Parthib<span className="waving-hand">👋</span>
         </p>
         <p className="text-gray_gradient hero_tag">
           An aspiring Full Stack Developer
@@ -71,13 +72,15 @@ const HeroSection = () => {
         <Canvas className="w-full h-full">
           <Suspense fallback={<CanvasLoader />}>
             <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-            <HackerRoom
-              scale={sizes.deskScale}
-              rotation={[0.3, -Math.PI, 0]}
-              position={sizes.deskPosition}
-            />
+            <HeroCamera isMobile={isMobile}>
+              <HackerRoom
+                scale={sizes.deskScale}
+                rotation={[isMobile ? 0.25 : -0.03, -Math.PI, 0]}
+                position={sizes.deskPosition}
+              />
+            </HeroCamera>
             <group>
-              <Target position={sizes.targetPosition} scale={1.2} />
+              <Target position={sizes.targetPosition} scale={1.3} />
               <ReactLogo position={sizes.reactLogoPosition} />
               <Cube position={sizes.cubePosition} />
               <Rings position={sizes.ringPosition} />
@@ -87,6 +90,10 @@ const HeroSection = () => {
             <directionalLight position={[10, 10, 10]} intensity={0.5} />
           </Suspense>
         </Canvas>
+      </div>
+
+      <div className="absolute bottom-7 top-0 left-0 right-0 w-full z-10 c-space">
+        <a href="#contact" className="w-fit"></a>
       </div>
     </section>
   );
