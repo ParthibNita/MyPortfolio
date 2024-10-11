@@ -8,8 +8,10 @@ import ShowProjects from "../components/ShowProjects";
 const Projects = () => {
   const [CurrentProjIndex, setCurrentProjIndex] = useState(0);
   const currentProject = myProjects[CurrentProjIndex];
+  const [currentDirection, setcurrentDirection] = useState("");
 
   const changeProject = (direction) => {
+    setcurrentDirection(direction);
     setCurrentProjIndex((prevIdx) => {
       if (direction === "previous") {
         return prevIdx === 0 ? myProjects.length - 1 : prevIdx - 1;
@@ -94,7 +96,10 @@ const Projects = () => {
             <Center>
               <Suspense fallback={<CanvasLoader />}>
                 <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                  <ShowProjects />
+                  <ShowProjects
+                    projTexture={currentProject.texture}
+                    direction={currentDirection}
+                  />
                 </group>
               </Suspense>
             </Center>
