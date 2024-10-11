@@ -1,23 +1,44 @@
-import React, { useRef } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useRef, useEffect } from "react";
+import { useGLTF, useVideoTexture } from "@react-three/drei";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const ShowProjects = (props) => {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/models/computer.glb");
-  const { actions } = useAnimations(animations, group);
+  const { nodes, materials } = useGLTF("/models/computer.glb");
+
+  const projVideo = useVideoTexture(
+    props.projTexture ? props.projTexture : "/textures/project/project1.mp4"
+  );
+
+  useEffect(() => {
+    if (projVideo) {
+      projVideo.flipY = false;
+    }
+  }, [projVideo]);
+
+  useGSAP(() => {
+    // console.log(props.direction);
+    gsap.from(group.current.rotation, {
+      y: props.direction === "previous" ? -Math.PI / 2 : Math.PI / 2,
+      duration: 1,
+      ease: "power3.out",
+    });
+  }, [projVideo]);
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <mesh
           name="monitor-screen"
-          castShadow
-          receiveShadow
           geometry={nodes["monitor-screen"].geometry}
           material={nodes["monitor-screen"].material}
           position={[0.127, 1.831, 0.511]}
           rotation={[1.571, -0.005, 0.031]}
           scale={[0.661, 0.608, 0.401]}
-        />
+        >
+          <meshBasicMaterial map={projVideo} toneMapped={false} />
+        </mesh>
         <group
           name="RootNode"
           position={[0, 1.093, 0]}
@@ -933,57 +954,41 @@ const ShowProjects = (props) => {
         >
           <mesh
             name="Monitor-B-_computer_0_1"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_1"].geometry}
             material={materials.computer}
           />
           <mesh
             name="Monitor-B-_computer_0_2"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_2"].geometry}
             material={materials.base__0}
           />
           <mesh
             name="Monitor-B-_computer_0_3"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_3"].geometry}
             material={materials.Material_36}
           />
           <mesh
             name="Monitor-B-_computer_0_4"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_4"].geometry}
             material={materials.Material_35}
           />
           <mesh
             name="Monitor-B-_computer_0_5"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_5"].geometry}
             material={materials.Material_34}
           />
           <mesh
             name="Monitor-B-_computer_0_6"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_6"].geometry}
             material={materials.keys}
           />
           <mesh
             name="Monitor-B-_computer_0_7"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_7"].geometry}
             material={materials.keys2}
           />
           <mesh
             name="Monitor-B-_computer_0_8"
-            castShadow
-            receiveShadow
             geometry={nodes["Monitor-B-_computer_0_8"].geometry}
             material={materials.Material_37}
           />
@@ -994,4 +999,5 @@ const ShowProjects = (props) => {
 };
 
 useGLTF.preload("/models/computer.glb");
+
 export default ShowProjects;
